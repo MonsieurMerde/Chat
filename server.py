@@ -3,9 +3,10 @@
 import json
 import socket
 import sys
+
 from common.utils import get_message, send_message
-from common.variables import ACTION, ACCOUNT_NAME, DEFAULT_PORT, ERROR, MAX_CONNECTIONS, \
-    PRESENCE, RESPONSE, TIME, USER
+from common.variables import (ACCOUNT_NAME, ACTION, DEFAULT_PORT, ERROR,
+                              MAX_CONNECTIONS, PRESENCE, RESPONSE, TIME, USER)
 
 
 def process_client_message(message: dict):

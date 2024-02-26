@@ -4,9 +4,11 @@ import json
 import socket
 import sys
 import time
+
 from common.utils import get_message, send_message
-from common.variables import ACTION, ACCOUNT_NAME, DEFAULT_IP_ADDRESS, DEFAULT_PORT, ERROR, \
-    PRESENCE, RESPONSE, TIME, USER
+from common.variables import (ACCOUNT_NAME, ACTION, DEFAULT_IP_ADDRESS,
+                              DEFAULT_PORT, ERROR, PRESENCE, RESPONSE, TIME,
+                              USER)
 
 
 def create_presence(account_name='Guest'):
@@ -27,7 +29,7 @@ def create_presence(account_name='Guest'):
     return out
 
 
-def process_answer(message):
+def process_server_answer(message):
     """
     Функция разбирает ответ сервера.
     :param message:
@@ -71,7 +73,7 @@ def main():
     # {'action': 'presence', 'time': 1573760672.167031, 'user': {'account_name': 'Guest'}}
     send_message(transport, message_to_server)
     try:
-        answer = process_answer(get_message(transport))
+        answer = process_server_answer(get_message(transport))
         print(answer)
     except(ValueError, json.JSONDecodeError):
         print("Не удалось декодировать сообщение сервера.")
