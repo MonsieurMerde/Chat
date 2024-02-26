@@ -1,26 +1,9 @@
 """Утилиты"""
 
 import json
+import time
+
 from common.variables import ENCODING, MAX_PACKAGE_LENGTH
-
-
-def get_message(sock):
-    """
-    Утилита приёма и декодирования сообщения.
-    Принимает сокет, получает из него байты, выдаёт словарь.
-    Если принято что-нибудь другое, отдаёт ошибку значения.
-    :param sock:
-    :return:
-    """
-
-    encoded_response = sock.recv(MAX_PACKAGE_LENGTH)
-    if isinstance(encoded_response, bytes):
-        json_response = encoded_response.decode(ENCODING)
-        response = json.loads(json_response)
-        if isinstance(response, dict):
-            return response
-        raise ValueError
-    raise ValueError
 
 
 def send_message(sock, message):
@@ -34,3 +17,23 @@ def send_message(sock, message):
     json_message = json.dumps(message)
     encoded_message = json_message.encode(ENCODING)
     sock.send(encoded_message)
+
+
+def get_message(sock):
+    """
+    Утилита приёма и декодирования сообщения.
+    Принимает сокет, получает из него байты, выдаёт словарь.
+    Если получено что-нибудь другое, отдаёт ошибку значения.
+    :param sock:
+    :return:
+    """
+
+    encoded_response = sock.recv(MAX_PACKAGE_LENGTH)
+    # print(encoded_response)
+    if isinstance(encoded_response, bytes):
+        json_response = encoded_response.decode(ENCODING)
+        response = json.loads(json_response)
+        if isinstance(response, dict):
+            return response
+        raise ValueError
+    raise ValueError
